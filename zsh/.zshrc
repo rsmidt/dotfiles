@@ -1,5 +1,15 @@
 #!/bin/zsh
-#
+
+# Detect OS:
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
 export PROJECTPATH="$HOME/Projects"
 export GOPATH="$PROJECTPATH/gocode"
 
@@ -11,6 +21,12 @@ export PATH=$PATH:$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin
 
 # This gets rid of the annoying tab completion bug (cdcd, sshssh etc.)
 # export LC_CTYPE=en_DE.UTF-8
+
+# https://discourse.brew.sh/t/failed-to-set-locale-category-lc-numeric-to-en-ru/5092/12
+if [[ $machine == Mac ]]; then
+    export LC_ALL=en_US.UTF-8
+fi
+
 export MAN_POSIXLY_CORRECT=1
 
 # Path to your oh-my-zsh installation.
