@@ -1,7 +1,7 @@
 #!/bin/zsh
 #
-export PROEJCTPATH="$HOME/Projects"
-export GOPATH="$PROEJCTPATH/gocode"
+export PROJECTPATH="$HOME/Projects"
+export GOPATH="$PROJECTPATH/gocode"
 
 export M2_HOME=/opt/maven
 export M2=$M2_HOME/bin
@@ -18,13 +18,18 @@ export ZSH=$HOME/.oh-my-zsh
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # Aliases
 alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
 alias nvimrc='vim ~/.config/nvim/init.vm'
 alias zshrc='vim ~/.zshrc'
 alias i3conf='vim ~/.config/i3/config'
+alias swayconf='vim ~/.config/sway/config'
 alias mux='tmuxinator'
+
+alias tgi="cd $PROJECTPATH/tgi-sose.2019"
 
 alias zshreload='source ~/.zshrc'
 alias vimreload='source ~/.vimrc'
@@ -34,7 +39,15 @@ alias vimtodo="vim -c ':tabnew | :TabooRename TODO' -c ':e todo.org' -c ':set te
 alias gbdrm='git branch --merged | grep -v "^[ *]*master$" >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
 # Apply wal schemes
-# cat ~/.cache/wal/sequences
+if type wal >/dev/null; then
+     cat ~/.cache/wal/sequences
+fi
+
+if type sway >/dev/null; then
+    if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+      exec sway
+    fi
+fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
