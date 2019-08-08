@@ -90,8 +90,10 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR="nvim"
 
-eval "`pip completion --zsh`"
-compctl -K _pip_completion pip3
+if type pip >/dev/null; then
+    eval "`pip completion --zsh`"
+    compctl -K _pip_completion pip3
+fi
 
 gocd () { cd `go list -f '{{.Dir}}' $1`  }
 lsproj () {
