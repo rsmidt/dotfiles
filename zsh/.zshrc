@@ -1,6 +1,16 @@
 #!/bin/zsh
 
-# Detect OS:
+# Enable vi mode
+bindkey -v
+
+# Remap delete key to actually delete a char
+bindkey "\e[3~" delete-char 
+
+# Allow Shift + Tab to cycle menu backwards
+zmodload zsh/complist
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+# Determine OS
 unameOut="$(uname -s)"
 case "${unameOut}" in
     Linux*)     machine=Linux;;
@@ -10,16 +20,31 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 
-export PROJECTPATH="$HOME/Projects"
-export GOPATH="$PROJECTPATH/gocode"
+# Set default project path
+export PROJEC_TPATH="$HOME/Projects"
 
+# Set GOPATH
+export GOPATH="$PROJECT_PATH/gocode"
+
+# Configure Maven
 export M2_HOME=/opt/maven
 export M2=$M2_HOME/bin
 
-# If you come from bash you might have to change your $PATH.
-export PATH=$PATH:$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin
+# Append PATH
+export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
+
+# Set key timeouet to 1 for vi mode
+export KEYTIMEOUT=1
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
 
 # This gets rid of the annoying tab completion bug (cdcd, sshssh etc.)
+# May not needed everywhere
 # export LC_CTYPE=en_DE.UTF-8
 
 # https://discourse.brew.sh/t/failed-to-set-locale-category-lc-numeric-to-en-ru/5092/12
@@ -27,13 +52,13 @@ if [[ $machine == Mac ]]; then
     export LC_ALL=en_US.UTF-8
 fi
 
-export MAN_POSIXLY_CORRECT=1
+# Default editor ist nvim
+export EDITOR="nvim"
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
+# Configure FZF to use Ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
+# Fix Java windows in sway
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Aliases
@@ -45,7 +70,7 @@ alias i3conf='vim ~/.config/i3/config'
 alias swayconf='vim ~/.config/sway/config'
 alias mux='tmuxinator'
 
-alias tgi="cd $PROJECTPATH/tgi-sose.2019"
+alias tgi="cd $PROJECT_PATH/tgi-sose.2019"
 
 alias zshreload='source ~/.zshrc'
 alias vimreload='source ~/.vimrc'
@@ -54,98 +79,75 @@ alias vimtodo="vim -c ':tabnew | :TabooRename TODO' -c ':e todo.org' -c ':set te
 
 alias gbdrm='git branch --merged | grep -v "^[ *]*master$" >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
+
 # Apply wal schemes
 if type wal >/dev/null; then
      cat ~/.cache/wal/sequences
 fi
 
+# If sway is installed, start it because we probably are not using a login manager
 if type sway >/dev/null; then
     if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
       exec sway
     fi
 fi
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="lambda-mod"
-
-# source ~/tmuxinator/completion/tmuxinator.zsh
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="dd.mm.yyyy"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git ng python redis-cli yarn docker docker-compose)
-
-source $ZSH/oh-my-zsh.sh
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-export EDITOR="nvim"
-
+# Apply pip completion only if pip is installed
 if type pip >/dev/null; then
     eval "`pip completion --zsh`"
     compctl -K _pip_completion pip3
 fi
 
-gocd () { cd `go list -f '{{.Dir}}' $1`  }
-lsproj () {
-    print $fg[red]"Projects in default dir:" 
-    ls $HOME/Projects
-    print $fg[white]"---------------------------------------------------------------------"
-    print $fg[red]"Projects in user GOPATH:"
-    ls $GOPATH/src/gitlab.com/rsmidt
-}
-cdp () {
-    if [[ -d "$HOME/Projects" ]]; then
-        ITEMS=($HOME/Projects/*)
-    fi
-    
-    if [[ -d "$HOME/Projects/gocode/src/gitlab.com/rsmidt" ]]; then
-        ITEMS+=($GOPATH/src/gitlab.com/rsmidt/*)
-    fi
 
-    for item in $ITEMS; do
-        if [[ ! -d $item ]]; then
-            delete=($item)
-        fi
-        FOLDERS=("${ITEMS[@]/$delete}")
-    done
+### Added by Zplugin's installer
+source '/Users/ruben.smidt/.zplugin/bin/zplugin.zsh'
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin's installer chunk
 
-    WORKPSPACES=()
+# Zplugin configuration
 
-    for folder in $FOLDERS; do
-        if [[ "${folder##*/}" = "${@[1]}" ]]; then
-            WORKSPACES+=($folder)
-        fi
-    done
+# LS_COLORS
+zplugin ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zplugin light trapd00r/LS_COLORS
 
-    if [[ ${#WORKSPACES} -gt 1 ]]; then
-        echo "I found more than one project with the same name, which do you want?\n"
-        i=1
-        for ws in $WORKSPACES; do
-            echo "$i: $ws"
-            ((i++))
-        done
+# Prompt
+zplugin light geometry-zsh/geometry
 
-        local choice
-        vared choice
-    else
-        choice=1
-    fi
+# Completions
+zplugin ice wait atinit"zstyle ':completion:*' menu select" blockf lucid
+zplugin light zsh-users/zsh-completions
 
-    if [[ -d ${WORKSPACES[$choice]} ]]; then
-        cd $WORKSPACES[$choice]
-    else
-        cd $PROEJCTPATH
-    fi
-    unset WORKSPACES
-    unset ITEMS
-}
+# Autosuggestions
+zplugin ice wait atload"_zsh_autosuggest_start" lucid
+zplugin load zsh-users/zsh-autosuggestions
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
+
+# Syntax highlighting
+zplugin ice wait atinit"zpcompinit; zpcdreplay" lucid
+zplugin light zdharma/fast-syntax-highlighting
+
+# Common git aliases from OMZ
+zplugin ice wait lucid
+zplugin snippet OMZ::plugins/git/git.plugin.zsh
+
+# Common directory aliases from OMZ
+zplugin ice wait atload"unalias grv" lucid
+zplugin snippet OMZ::lib/directories.zsh
+
+# Rustup and Cargo
+zplugin ice wait lucid
+zplugin load ~/.zplugin/completions/_rustup
+
+zplugin ice wait lucid
+zplugin load ~/.zplugin/completions/_cargo
+
+# Docker and docker-composse
+zplugin ice wait lucid as"completion"
+zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+zplugin ice wait lucid as"completion"
+zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
