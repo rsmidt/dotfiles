@@ -86,7 +86,12 @@ syntax on
 " Airline & Statusline
 set laststatus=2
 
-let g:airline_theme = 'wal'
+if has ('wal')
+    let g:airline_theme = 'wal'
+else
+    let g:airline_theme = 'onedark'
+end
+
 let g:airline_powerline_fonts = 1
 
 " Vim JSON
