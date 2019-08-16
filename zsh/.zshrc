@@ -69,6 +69,7 @@ alias zshrc='vim ~/.zshrc'
 alias i3conf='vim ~/.config/i3/config'
 alias swayconf='vim ~/.config/sway/config'
 alias mux='tmuxinator'
+alias open='xdg-open'
 
 alias tgi="cd $PROJECT_PATH/tgi-sose.2019"
 
