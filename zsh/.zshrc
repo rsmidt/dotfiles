@@ -6,6 +6,10 @@ bindkey -v
 # Remap delete key to actually delete a char
 bindkey "\e[3~" delete-char 
 
+# Allow incremental search
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey -M vicmd '/' history-incremental-pattern-search-backward
+
 # Allow Shift + Tab to cycle menu backwards
 zmodload zsh/complist
 bindkey -M menuselect '^[[Z' reverse-menu-complete
