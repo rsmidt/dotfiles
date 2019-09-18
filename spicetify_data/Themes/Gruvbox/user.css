@@ -676,3 +676,15 @@ body.remotebar .view-player .player-bar-wrapper {
 .tl-row.unavailable .tl-highlight {
 	color: var(--modspotify_preserve_1) !important;
 }
+
+.h-search:focus {
+    background: var(--modspotify_main_fg);
+}
+
+.h-search-wrapper:focus-within:hover input {
+    color: var(--modspotify_main_bg) !important;
+}
+
+.h-search-wrapper:focus-within:hover::before {
+    color: var(--modspotify_main_bg);
+}
