@@ -671,3 +671,8 @@ body.remotebar .view-player .player-bar-wrapper {
 .Header__image-inner {
 	box-shadow: unset;
 }
+
+.tl-row.unavailable .tl-cell,
+.tl-row.unavailable .tl-highlight {
+	color: var(--modspotify_preserve_1) !important;
+}
