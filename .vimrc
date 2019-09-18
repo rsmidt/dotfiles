@@ -8,13 +8,11 @@ else
 endif
 
 Plug 'sk1418/HowMuch'
-Plug 'joshdick/onedark.vim'
 Plug 'lervag/vimtex'
 Plug 'racer-rust/vim-racer'
 Plug 'tpope/vim-dispatch'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-dispatch'
-Plug 'joshdick/onedark.vim'  
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go'
@@ -31,6 +29,8 @@ Plug 'jceb/vim-orgmode'
 
 if executable('wal')
     Plug 'dylanaraps/wal.vim'
+else
+    Plug 'morhetz/gruvbox'
 end
 
 call plug#end()
@@ -40,7 +40,7 @@ filetype plugin indent on
 if executable('wal')
     colorscheme wal
 else
-    colorscheme onedark
+    colorscheme gruvbox
     set termguicolors
 endif
     
@@ -89,7 +89,7 @@ set laststatus=2
 if has ('wal')
     let g:airline_theme = 'wal'
 else
-    let g:airline_theme = 'onedark'
+    let g:airline_theme = 'gruvbox'
 end
 
 let g:airline_powerline_fonts = 1
