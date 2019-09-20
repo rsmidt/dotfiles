@@ -137,7 +137,7 @@
 .view-player .player-controls-container .controls .button-play{
 	height:50px !important;
 	border-radius:50px !important;
-	background: var(--modspotify_slider_bg) !important;
+	background: var(--modspotify_miscellaneous_bg) !important;
 	box-shadow:0 0 0 0 !important;
 	width:50px !important;
 	overflow: visible !important;
@@ -591,8 +591,8 @@ span.glue-page-header__title-text {
 
 .progress-container .inner {
 	border-radius: 0 2px 2px 0 !important;
-	background-color: var(--modspotify_main_fg) !important;
-	box-shadow: 0 2px 2px 0 var(--modspotify_main_fg);
+	background-color: var(--modspotify_miscellaneous_bg) !important;
+	box-shadow: 0 2px 2px 0 var(--modspotify_miscellaneous_bg);
 }
 
 .glue-page-header__p2s-details,
