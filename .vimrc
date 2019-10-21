@@ -86,7 +86,7 @@ syntax on
 " Airline & Statusline
 set laststatus=2
 
-if has ('wal')
+if executable('wal')
     let g:airline_theme = 'wal'
 else
     let g:airline_theme = 'gruvbox'
