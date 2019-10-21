@@ -170,3 +170,5 @@ zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh
 
 zplugin ice wait lucid as"completion"
 zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
+
+typeset -aU path
