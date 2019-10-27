@@ -95,6 +95,7 @@ alias zshreload='source ~/.zshrc'
 alias vimreload='source ~/.vimrc'
 
 alias vimtodo="vim -c ':tabnew | :TabooRename TODO' -c ':e todo.org' -c ':set textwidth=0' -c ':set wrapmargin=0' -c ':tabNext | :TabooRename Project'"
+alias vimupdate="vim +PlugUpdate +qall"
 
 alias gbdrm='git branch --merged | grep -v "^[ *]*master$" >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
