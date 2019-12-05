@@ -35,7 +35,7 @@ case "${unameOut}" in
 esac
 
 # Set default project path
-export PROJEC_TPATH="$HOME/Projects"
+export PROJECT_PATH="$HOME/Projects"
 
 # Set GOPATH
 export GOPATH="$PROJECT_PATH/gocode"
@@ -173,3 +173,9 @@ zplugin ice wait lucid as"completion"
 zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 typeset -aU path
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/ruben/google-cloud-sdk/path.zsh.inc' ]; then . '/home/ruben/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/ruben/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/ruben/google-cloud-sdk/completion.zsh.inc'; fi
