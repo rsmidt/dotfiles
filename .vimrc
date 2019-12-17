@@ -26,6 +26,7 @@ Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-sensible'
 Plug 'jceb/vim-orgmode'
+Plug 'ap/vim-css-color'
 
 if executable('wal')
     Plug 'dylanaraps/wal.vim'
