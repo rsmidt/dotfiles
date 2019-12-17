@@ -76,6 +76,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Aliases
+alias dots='cd ~/.dotfiles'
 alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
 alias nvimrc='vim ~/.config/nvim/init.vm'
@@ -98,7 +99,6 @@ alias vimtodo="vim -c ':tabnew | :TabooRename TODO' -c ':e todo.org' -c ':set te
 alias vimupdate="vim +PlugUpdate +qall"
 
 alias gbdrm='git branch --merged | grep -v "^[ *]*master$" >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
-
 
 # Apply wal schemes
 if type wal >/dev/null; then
