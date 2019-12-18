@@ -100,6 +100,9 @@ alias vimupdate="vim +PlugUpdate +qall"
 
 alias gbdrm='git branch --merged | grep -v "^[ *]*master$" >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
+alias cbh='bluetoothctl connect 00:1B:66:83:1F:3E'
+alias dbh='bluetoothctl disconnect 00:1B:66:83:1F:3E'
+
 # Apply wal schemes
 if type wal >/dev/null; then
      cat ~/.cache/wal/sequences
