@@ -31,7 +31,7 @@ Plug 'ap/vim-css-color'
 if executable('wal')
     Plug 'dylanaraps/wal.vim'
 else
-    Plug 'morhetz/gruvbox'
+    Plug 'joshdick/onedark.vim'
 end
 
 call plug#end()
@@ -41,7 +41,7 @@ filetype plugin indent on
 if executable('wal')
     colorscheme wal
 else
-    colorscheme gruvbox
+    colorscheme onedark
     set termguicolors
 endif
     
@@ -90,7 +90,7 @@ set laststatus=2
 if executable('wal')
     let g:airline_theme = 'wal'
 else
-    let g:airline_theme = 'gruvbox'
+    let g:airline_theme = 'onedark'
 end
 
 let g:airline_powerline_fonts = 1
