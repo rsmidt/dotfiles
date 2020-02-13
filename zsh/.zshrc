@@ -47,6 +47,10 @@ export M2=$M2_HOME/bin
 # Append PATH
 export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
 
+if [[ -d "/opt/texlive" ]]; then
+    export PATH=/opt/texlive/2019/bin/x86_64-linux:$PATH
+fi
+
 # Set key timeouet to 1 for vi mode
 export KEYTIMEOUT=1
 
@@ -121,59 +125,65 @@ if type pip >/dev/null; then
     compctl -K _pip_completion pip3
 fi
 
-
-### Added by Zplugin's installer
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin's installer chunk
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f"
+fi
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit installer's chunk
 
 # Zplugin configuration
 
 # LS_COLORS
-zplugin ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zplugin light trapd00r/LS_COLORS
+zinit light trapd00r/LS_COLORS
 
 # Prompt
-zplugin light geometry-zsh/geometry
+zinit light geometry-zsh/geometry
 
 # Completions
-zplugin ice wait atinit"zstyle ':completion:*' menu select" blockf lucid
-zplugin light zsh-users/zsh-completions
+zinit ice wait atinit"zstyle ':completion:*' menu select" blockf lucid
+zinit light zsh-users/zsh-completions
 
 # Autosuggestions
-zplugin ice wait atload"_zsh_autosuggest_start" lucid
-zplugin load zsh-users/zsh-autosuggestions
+zinit ice wait atload"_zsh_autosuggest_start" lucid
+zinit load zsh-users/zsh-autosuggestions
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
 
 # Syntax highlighting
-zplugin ice wait atinit"zpcompinit; zpcdreplay" lucid
-zplugin light zdharma/fast-syntax-highlighting
+zinit ice wait atinit"zpcompinit; zpcdreplay" lucid
+zinit light zdharma/fast-syntax-highlighting
 
 # Common git aliases from OMZ
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/git/git.plugin.zsh
 
 # Common directory aliases from OMZ
-zplugin ice wait atload"unalias grv" lucid
-zplugin snippet OMZ::lib/directories.zsh
+zinit ice wait atload"unalias grv" lucid
+zinit snippet OMZ::lib/directories.zsh
 
 # Rustup and Cargo
-zplugin ice wait lucid
-zplugin load ~/.zplugin/completions/_rustup
+zinit ice wait lucid
+zinit load ~/.zinit/completions/_rustup
 
-zplugin ice wait lucid
-zplugin load ~/.zplugin/completions/_cargo
+zinit ice wait lucid
+zinit load ~/.zinit/completions/_cargo
 
 # Docker and docker-composse
-zplugin ice wait lucid as"completion"
-zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+zinit ice wait lucid as"completion"
+zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zplugin ice wait lucid as"completion"
-zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
+zinit ice wait lucid as"completion"
+zinit snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 typeset -aU path
 
