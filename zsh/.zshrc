@@ -51,6 +51,11 @@ if [[ -d "/opt/texlive" ]]; then
     export PATH=/opt/texlive/2019/bin/x86_64-linux:$PATH
 fi
 
+if [[ -d "$HOME/.groovy" ]]; then
+    export GROOVY_HOME=$HOME/.groovy
+    export PATH=$HOME/.groovy/bin:$PATH
+fi
+
 # Set key timeouet to 1 for vi mode
 export KEYTIMEOUT=1
 
