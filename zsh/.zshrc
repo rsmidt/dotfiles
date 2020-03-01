@@ -152,7 +152,7 @@ zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
 zinit light trapd00r/LS_COLORS
 
 # Prompt
-zinit light geometry-zsh/geometry
+eval "$(starship init zsh)"
 
 # Completions
 zinit ice wait atinit"zstyle ':completion:*' menu select" blockf lucid
