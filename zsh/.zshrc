@@ -192,6 +192,11 @@ zinit snippet https://github.com/docker/compose/blob/master/contrib/completion/z
 
 typeset -aU path
 
+# Use gpg-agent for instead of the default ssh-agent
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/ruben/google-cloud-sdk/path.zsh.inc' ]; then . '/home/ruben/google-cloud-sdk/path.zsh.inc'; fi
 
