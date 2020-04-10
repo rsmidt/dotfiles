@@ -198,6 +198,9 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
+# Set term for ssh sessions
+alias ssh='TERM=xterm-256color \ssh'
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/ruben/google-cloud-sdk/path.zsh.inc' ]; then . '/home/ruben/google-cloud-sdk/path.zsh.inc'; fi
 
