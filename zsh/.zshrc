@@ -24,6 +24,11 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+fi
+
 # Determine OS
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -65,11 +70,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
-
-# This gets rid of the annoying tab completion bug (cdcd, sshssh etc.)
-# May not needed everywhere
-# export LC_CTYPE=en_DE.UTF-8
-
 # https://discourse.brew.sh/t/failed-to-set-locale-category-lc-numeric-to-en-ru/5092/12
 if [[ $machine == Mac ]]; then
     export LC_ALL=en_US.UTF-8
@@ -99,18 +99,10 @@ if [[ $machine == Linux ]]; then
     alias open='xdg-open'
 fi
 
-alias tgi="cd $PROJECT_PATH/tgi-sose.2019"
-
 alias zshreload='source ~/.zshrc'
 alias vimreload='source ~/.vimrc'
 
 alias vimtodo="vim -c ':tabnew | :TabooRename TODO' -c ':e todo.org' -c ':set textwidth=0' -c ':set wrapmargin=0' -c ':tabNext | :TabooRename Project'"
-alias vimupdate="vim +PlugUpdate +qall"
-
-alias gbdrm='git branch --merged | grep -v "^[ *]*master$" >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
-
-alias cbh='bluetoothctl connect 00:1B:66:83:1F:3E'
-alias dbh='bluetoothctl disconnect 00:1B:66:83:1F:3E'
 
 # Apply wal schemes
 if type wal >/dev/null; then
@@ -154,19 +146,14 @@ zinit light trapd00r/LS_COLORS
 # Prompt
 eval "$(starship init zsh)"
 
-# Completions
-zinit ice wait atinit"zstyle ':completion:*' menu select" blockf lucid
-zinit light zsh-users/zsh-completions
-
-# Autosuggestions
-zinit ice wait atload"_zsh_autosuggest_start" lucid
+# Autosuggestions & fast-syntax-highlighting
+zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
+# zsh-autosuggestions
+zinit ice wait lucid atload"!_zsh_autosuggest_start"
 zinit load zsh-users/zsh-autosuggestions
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
-
-# Syntax highlighting
-zinit ice wait atinit"zpcompinit; zpcdreplay" lucid
-zinit light zdharma/fast-syntax-highlighting
 
 # Common git aliases from OMZ
 zinit ice wait lucid
@@ -177,7 +164,7 @@ zinit ice wait atload"unalias grv" lucid
 zinit snippet OMZ::lib/directories.zsh
 
 # Rustup and Cargo
-zinit ice wait lucid
+zinit ice wait lucid as"completion"
 zinit load ~/.zinit/completions/_rustup
 
 zinit ice wait lucid
