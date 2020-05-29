@@ -122,6 +122,13 @@ if type pip >/dev/null; then
     compctl -K _pip_completion pip3
 fi
 
+pacs() {
+    progs=$(pacman -Ssq | fzf -m --preview='pacman -Si {}' --preview-window=':hidden' --bind='space:toggle-preview')
+    if (( $? == 0 )); then
+        sudo pacman -Syy $progs
+    fi
+}
+
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
