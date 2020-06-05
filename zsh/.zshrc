@@ -129,6 +129,13 @@ pacs() {
     fi
 }
 
+cdp() {
+    progs=$(fd -d 1 . $PROJECT_PATH | fzf)
+    if [[ ! -z $progs ]]; then
+        cd $progs
+    fi
+}
+
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
