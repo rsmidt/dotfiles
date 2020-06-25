@@ -8,3 +8,6 @@
 	gpgsign = true
 [merge]
 	ff = only
+[pull]
+	rebase = true
+	ff = only
