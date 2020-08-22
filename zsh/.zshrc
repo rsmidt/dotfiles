@@ -61,6 +61,20 @@ if [[ -d "$HOME/.groovy" ]]; then
     export PATH=$HOME/.groovy/bin:$PATH
 fi
 
+# Android SDK
+if [[ -d "$HOME/Android/Sdk" ]]; then
+    export ANDROID_HOME=$HOME/Android/Sdk
+    export PATH=$PATH:$ANDROID_HOME/emulator
+    export PATH=$PATH:$ANDROID_HOME/tools
+    export PATH=$PATH:$ANDROID_HOME/tools/bin
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
+
+# yarn bin
+if type yarn >/dev/null; then
+    export PATH=$PATH:$(yarn global bin)
+fi
+
 # Set key timeouet to 1 for vi mode
 export KEYTIMEOUT=1
 
