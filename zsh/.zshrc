@@ -24,10 +24,13 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
+# FZF
 if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
     source /usr/share/fzf/key-bindings.zsh
     source /usr/share/fzf/completion.zsh
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Determine OS
 unameOut="$(uname -s)"
