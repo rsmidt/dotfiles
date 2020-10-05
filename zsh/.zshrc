@@ -85,7 +85,8 @@ export KEYTIMEOUT=1
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt appendhistory
+setopt inc_append_history
+setopt share_history
 
 # https://discourse.brew.sh/t/failed-to-set-locale-category-lc-numeric-to-en-ru/5092/12
 if [[ $machine == Mac ]]; then
