@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Heavily inspired by https://github.com/JonnyHaystack/dotfiles/blob/master/install.sh
+
+# Get path of the dotfiles repo
+dir="$(dirname "$(readlink -f "$0")")"
+
+# Set path of config directory
+conf=$HOME/.config
+
+# Create config directory
+mkdir -p $conf
+
+clear_dir() {
+    if [[ -L $1 ]]; then
+		echo "Link $1 exists. It will be overwritten."
+		rm "$1"
+	fi
+	mkdir -p "$1"
+}
+
+ln_conf() {
+	ln -sf $dir/$1 $conf/$1
+}
+
+ln_dir() {
+	ln -sfn $dir/$1 $conf/$1
+}
+
+
+# Install user scripts
+mkdir -p $HOME/bin
+ln -sf $dir/bin/* $HOME/bin/
+
+# zsh
+ln -sf $dir/zsh/zshrc $HOME/.zshrc
+
+# git
+ln -sf $dir/git/gitconfig $HOME/.gitconfig
+
+# vim/nvim
+clear_dir $conf/nvim
+ln_conf nvim/init.vim
+ln -sf $dir/vim/vimrc $HOME/.vimrc
+echo "Vim: You may need to install vim-plug!"
+
+# i3
+clear_dir $conf/i3
+ln_dir i3/conf.d
+ln_conf i3/bootstrap
+cp -n $dir/i3/bootstrap_config $conf/i3/config
+
+# i3status
+clear_dir $conf/i3status
+ln_conf i3status/config
+
+# alacritty
+clear_dir $conf/alacritty
+ln_conf alacritty/alacritty.yml
+
+# starship
+clear_dir $conf/starship
+ln_conf starship/starship.toml

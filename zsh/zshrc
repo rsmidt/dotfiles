@@ -102,13 +102,16 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 # Fix Java windows in sway
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# Fix man warnings
+export MAN_POSIXLY_CORRECT=1
+
 # Aliases
 alias dots='cd ~/.dotfiles'
 alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
 alias nvimrc='vim ~/.config/nvim/init.vm'
 alias zshrc='vim ~/.zshrc'
-alias i3conf='vim ~/.config/i3/config'
+alias i3conf='vim ~/.config/i3/conf.d/0-base.conf'
 alias swayconf='vim ~/.config/sway/config'
 alias mux='tmuxinator'
 
