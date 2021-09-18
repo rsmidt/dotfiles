@@ -60,3 +60,10 @@ ln_conf alacritty/alacritty.yml
 # starship
 clear_dir $conf/starship
 ln_conf starship/starship.toml
+
+#rofi
+clear_dir $conf/rofi
+ln_conf rofi/config.rasi
+
+# X files
+ln -sf $dir/x/Xresources $HOME/.Xresources
