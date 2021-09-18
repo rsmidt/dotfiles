@@ -12,18 +12,18 @@ mkdir -p $conf
 
 clear_dir() {
     if [[ -L $1 ]]; then
-		echo "Link $1 exists. It will be overwritten."
-		rm "$1"
-	fi
-	mkdir -p "$1"
+        echo "Link $1 exists. It will be overwritten."
+        rm "$1"
+    fi
+    mkdir -p "$1"
 }
 
 ln_conf() {
-	ln -sf $dir/$1 $conf/$1
+    ln -sf $dir/$1 $conf/$1
 }
 
 ln_dir() {
-	ln -sfn $dir/$1 $conf/$1
+    ln -sfn $dir/$1 $conf/$1
 }
 
 
