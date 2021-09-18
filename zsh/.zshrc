@@ -53,7 +53,7 @@ export M2_HOME=/opt/maven
 export M2=$M2_HOME/bin
 
 # Append PATH
-export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
+export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/usr/sbin:$PATH
 
 if [[ -d "/opt/texlive" ]]; then
     export PATH=/opt/texlive/2019/bin/x86_64-linux:$PATH
@@ -127,32 +127,15 @@ if type wal >/dev/null; then
      cat ~/.cache/wal/sequences
 fi
 
-# If sway is installed, start it because we probably are not using a login manager
-if type sway >/dev/null; then
-    if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-      exec sway
-    fi
-fi
-
 # Apply pip completion only if pip is installed
 if type pip >/dev/null; then
     eval "`pip completion --zsh`"
     compctl -K _pip_completion pip3
 fi
 
-pacs() {
-    progs=$(pacman -Ssq | fzf -m --preview='pacman -Si {}' --preview-window=':hidden' --bind='space:toggle-preview')
-    if (( $? == 0 )); then
-        sudo pacman -Syy $progs
-    fi
-}
-
-cdp() {
-    progs=$(fd -d 1 . $PROJECT_PATH | fzf)
-    if [[ ! -z $progs ]]; then
-        cd $progs
-    fi
-}
+if type fnm >/dev/null; then
+    eval "$(fnm env)"
+fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -220,8 +203,9 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 # Set term for ssh sessions
 alias ssh='TERM=xterm-256color \ssh'
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/ruben/google-cloud-sdk/path.zsh.inc' ]; then . '/home/ruben/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/ruben/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/ruben/google-cloud-sdk/completion.zsh.inc'; fi
+.update_title() {
+    echo -e "\e]2;"${USER}"@"${HOSTNAME%%.*}":"${PWD/#$HOME/\~}"\e\\"
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd .update_title
+.update_title
