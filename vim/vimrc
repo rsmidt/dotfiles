@@ -31,7 +31,7 @@ Plug 'ap/vim-css-color'
 if executable('wal')
     Plug 'dylanaraps/wal.vim'
 else
-    Plug 'joshdick/onedark.vim'
+    Plug 'morhetz/gruvbox'
 end
 
 call plug#end()
@@ -41,7 +41,7 @@ filetype plugin indent on
 if executable('wal')
     colorscheme wal
 else
-    colorscheme onedark
+    colorscheme gruvbox
     set termguicolors
 endif
     

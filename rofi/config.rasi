@@ -1,0 +1,6 @@
+configuration {
+    modi: "window,run,ssh";
+	font: "JetBrains Mono 12";
+	terminal: "alacritty";
+	theme: "gruvbox-dark" ;
+}
