@@ -32,6 +32,8 @@ mkdir -p $HOME/bin
 ln -sf $dir/bin/* $HOME/bin/
 
 # zsh
+clear_dir $conf/zsh
+ln_dir zsh/conf.d
 ln -sf $dir/zsh/zshrc $HOME/.zshrc
 
 # git
