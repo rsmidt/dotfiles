@@ -2,6 +2,8 @@
 	email = ruben@smidt-bremen.de
 	name = Ruben Smidt
     signingkey = 0C6587EDC05A6283
+[init]
+    defaultBranch = main
 [core]
 	autocrlf = input
 [commit]
