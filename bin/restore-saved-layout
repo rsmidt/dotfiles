@@ -13,3 +13,8 @@ IFS=',' read -r -a ws <<< "$(printf "%s\n" "${ws[@]}" | sort -u | tr '\n' ',')"
 for ws_name in "${ws[@]}"; do
     i3-resurrect restore -w "$ws_name"
 done
+
+
+# Run common applications that are only avaible in user space
+signal-desktop
+flatpak run com.getferdi.Ferdi
