@@ -17,4 +17,3 @@ done
 
 # Run common applications that are only avaible in user space
 signal-desktop
-flatpak run com.getferdi.Ferdi
