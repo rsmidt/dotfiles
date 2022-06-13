@@ -23,7 +23,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 Plug 'tpope/vim-repeat'
-Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-sensible'
 Plug 'jceb/vim-orgmode'
 Plug 'ap/vim-css-color'
