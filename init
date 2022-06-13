@@ -6,6 +6,7 @@ dir="$(dirname "$(readlink -f "$0")")"
 
 # Set path of config directory
 conf=$HOME/.config
+local_share=$HOME/.local/share
 
 # Create config directory
 mkdir -p $conf
@@ -23,7 +24,7 @@ ln_conf() {
 }
 
 ln_dir() {
-    ln -sfn $dir/$1 $conf/$1
+    ln -sfn $dir/$2 $1/$2
 }
 
 
@@ -33,7 +34,7 @@ ln -sf $dir/bin/* $HOME/bin/
 
 # zsh
 clear_dir $conf/zsh
-ln_dir zsh/conf.d
+ln_dir $conf zsh/conf.d
 ln -sf $dir/zsh/zshrc $HOME/.zshrc
 
 # git
@@ -43,11 +44,22 @@ ln -sf $dir/git/gitconfig $HOME/.gitconfig
 clear_dir $conf/nvim
 ln_conf nvim/init.vim
 ln -sf $dir/vim/vimrc $HOME/.vimrc
+ln_dir $conf nvim/lua
 echo "Vim: You may need to install vim-plug!"
+echo "NVim: Checking packer.nvim"
+packer_dest=~/.local/share/nvim/site/pack/packer/start/packer.nvim
+if [ ! -d $packer_dest ]
+then
+    echo "NVim: Trying to install packer.nvim."
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim $packer_dest
+else
+    echo "NVim: packer.nvim already cloned, skipping."
+fi
+ 
 
 # i3
 clear_dir $conf/i3
-ln_dir i3/conf.d
+ln_dir $conf i3/conf.d
 ln_conf i3/bootstrap
 cp -n $dir/i3/bootstrap_config $conf/i3/config
 
@@ -65,7 +77,9 @@ ln_conf starship/starship.toml
 
 #rofi
 clear_dir $conf/rofi
+clear_dir $local_share/rofi/themes
 ln_conf rofi/config.rasi
+ln_dir $local_share rofi/themes/*
 
 # X files
 ln -sf $dir/x/Xresources $HOME/.Xresources
