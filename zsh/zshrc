@@ -12,9 +12,6 @@ esac
 # Set default project path
 export PROJECT_PATH="$HOME/Projects"
 
-# Set GOPATH
-export GOPATH="$PROJECT_PATH/.gocode"
-
 # Append PATH
 export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/usr/sbin:$PATH
 
