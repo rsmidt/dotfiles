@@ -1,12 +1,4 @@
 #!/bin/zsh
-# FZF
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
-fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Determine OS
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -102,3 +94,21 @@ done
 unset conf
 
 typeset -aU path
+
+source /etc/zsh_completion.d/fzf-key-bindings
+# FZF
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /etc/zsh_completion.d/fzf-key-bindings ] && source /etc/zsh_completion.d/fzf-key-bindings
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
