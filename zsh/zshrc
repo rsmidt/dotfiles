@@ -9,6 +9,8 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Set default project path
 export PROJECT_PATH="$HOME/Projects"
 
@@ -84,19 +86,17 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
-# Taken from https://koenwoortman.com/zsh-split-zshrc-into-multiple-files/
-for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
-    source "${conf}"
-done
-unset conf
-
 typeset -aU path
 
-source /etc/zsh_completion.d/fzf-key-bindings
 # FZF
 if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
     source /usr/share/fzf/key-bindings.zsh
     source /usr/share/fzf/completion.zsh
+fi
+
+if [[ $machine == Mac && ! -f ~/.fzf.zsh ]]; then
+    printf "There are no fzf completions installed. You should run %s\n" "$(brew --prefix)/opt/fzf/install"
+    printf "They should be instaleld to ~/.fzf.zsh\n"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -106,6 +106,14 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+if type ng >/dev/null; then
+    # Load Angular CLI autocompletion.
+    source <(ng completion script)
+fi
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
+# Taken from https://koenwoortman.com/zsh-split-zshrc-into-multiple-files/
+for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
+    source "${conf}"
+done
+unset conf
+
