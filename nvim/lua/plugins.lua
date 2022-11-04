@@ -22,6 +22,7 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
+    use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }})
 
 
     -- Code Navigation
@@ -29,6 +30,7 @@ return require('packer').startup(function()
         'nvim-telescope/telescope.nvim',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+    use { "nvim-telescope/telescope-file-browser.nvim" }
 
     -- Debugging
     use 'nvim-lua/plenary.nvim'
