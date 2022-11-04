@@ -99,6 +99,11 @@ if [[ $machine == Mac && ! -f ~/.fzf.zsh ]]; then
     printf "They should be instaleld to ~/.fzf.zsh\n"
 fi
 
+# Fedora FZF
+if [[ -f /usr/share/fzf/shell/key-bindings.zsh ]]; then
+    source /usr/share/fzf/shell/key-bindings.zsh
+fi
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /etc/zsh_completion.d/fzf-key-bindings ] && source /etc/zsh_completion.d/fzf-key-bindings
 
@@ -106,14 +111,16 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-if type ng >/dev/null; then
-    # Load Angular CLI autocompletion.
-    source <(ng completion script)
-fi
-
 # Taken from https://koenwoortman.com/zsh-split-zshrc-into-multiple-files/
 for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
     source "${conf}"
 done
 unset conf
 
+# Load Angular CLI autocompletion.
+type ng >/dev/null && source <(ng completion script)
+
+# pnpm
+export PNPM_HOME="/home/ruben/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
