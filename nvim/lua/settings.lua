@@ -1,13 +1,20 @@
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.shiftwidth = 2
+vim.o.smartindent = true
 vim.o.expandtab = true
 vim.o.wrap = false
 vim.o.numberwidth = 1
 vim.o.number = false
 vim.o.signcolumn = 'yes'
+vim.o.rnu = true
+vim.o.nu = true
+vim.o.termguicolors = true
 vim.g.mapleader = ' '
 
 vim.cmd[[colorscheme catppuccin]]
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, bufnr)
     local builtin = require('telescope.builtin')
@@ -22,7 +29,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, bufopts)
     vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, bufopts)
-    vim.keymap.set('n', '<leader>b', require'telescope'.extensions.file_browser.file_browser, bufopts)
     vim.keymap.set('n', '<leader>ic', builtin.lsp_incoming_calls, bufopts)
     vim.keymap.set('n', '<leader>oc', builtin.lsp_outgoing_calls, bufopts)
     vim.keymap.set('n', '<leader>wl', function()
@@ -33,8 +39,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-
-    require("cmp_nvim_lsp").update_capabilities(require('cmp_nvim_lsp').default_capabilities())
 end
 
 -- Rust
@@ -68,11 +72,15 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  ident = {
+      enable = true
+  }
 }
 
 -- Elixir
 require'elixir'.setup {
-    cmd = "~/.elixir-ls/release/language_server.sh",
+    cmd = { vim.fn.expand("~/.elixir-ls/release/language_server.sh" ) },
+    capabilities = capabilities,
     on_attach = on_attach
 }
 
@@ -84,6 +92,10 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
+require('lspconfig')['rust_analyzer'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
 -- Telescope
 require("telescope").load_extension "file_browser"
