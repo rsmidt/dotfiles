@@ -33,6 +33,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    require("cmp_nvim_lsp").update_capabilities(require('cmp_nvim_lsp').default_capabilities())
 end
 
 -- Rust
@@ -70,8 +72,7 @@ require'nvim-treesitter.configs'.setup {
 
 -- Elixir
 require'elixir'.setup {
-    repo = "elixir-lsp/elixir-ls",
-    branch = "master", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+    cmd = "~/.elixir-ls/release/language_server.sh",
     on_attach = on_attach
 }
 

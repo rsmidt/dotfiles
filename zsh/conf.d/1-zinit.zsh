@@ -22,22 +22,31 @@ zinit light trapd00r/LS_COLORS
 # Prompt
 eval "$(starship init zsh)"
 
+# Git plugin from OMZ
+zinit wait lucid for \
+        OMZL::git.zsh \
+        OMZL::directories.zsh \
+        OMZP::git
+
 # Autosuggestions & fast-syntax-highlighting
-zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
+zinit wait lucid for \
+  atinit"zicompinit; zicdreplay"  \
+        zdharma-continuum/fast-syntax-highlighting \
+      OMZP::colored-man-pages \
+  as"completion" \
+        OMZP::docker/_docker
+
+# asdf-vm
+if [ -d "$HOME/.asdf" ]; then
+  zinit ice wait lucid
+  zinit light asdf-vm/asdf
+fi
+
 # zsh-autosuggestions
 zinit ice wait lucid atload"!_zsh_autosuggest_start"
 zinit load zsh-users/zsh-autosuggestions
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
-
-# Common git aliases from OMZ
-zinit ice wait lucid
-zinit snippet OMZ::plugins/git/git.plugin.zsh
-
-# Common directory aliases from OMZ
-zinit ice wait atload"unalias grv" lucid
-zinit snippet OMZ::lib/directories.zsh
 
 # Rustup and Cargo
 zinit ice wait lucid as"completion"
@@ -46,9 +55,3 @@ zinit load ~/.zinit/completions/_rustup
 zinit ice wait lucid
 zinit load ~/.zinit/completions/_cargo
 
-# Docker and docker-composse
-zinit ice wait lucid as"completion"
-zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-zinit ice wait lucid as"completion"
-zinit snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
