@@ -1,4 +1,36 @@
 #!/bin/zsh
+
+# Enable vi mode
+bindkey -v
+
+# Remap delete key to actually delete a char
+bindkey "\e[3~" delete-char 
+
+# Allow incremental search
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey -M vicmd '/' history-incremental-pattern-search-backward
+
+# Allow Shift + Tab to cycle menu backwards
+zmodload zsh/complist
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+# Better history searching
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt inc_append_history
+setopt share_history
+
 # Determine OS
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -117,3 +149,7 @@ for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
 done
 unset conf
 
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/rsmidt/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
