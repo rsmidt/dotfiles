@@ -42,20 +42,10 @@ ln -sf $dir/git/gitconfig $HOME/.gitconfig
 
 # vim/nvim
 clear_dir $conf/nvim
-ln_conf nvim/init.vim
+ln_conf nvim/init.lua
 ln -sf $dir/vim/vimrc $HOME/.vimrc
 ln_dir $conf nvim/lua
 echo "Vim: You may need to install vim-plug!"
-echo "NVim: Checking packer.nvim"
-packer_dest=~/.local/share/nvim/site/pack/packer/start/packer.nvim
-if [ ! -d $packer_dest ]
-then
-    echo "NVim: Trying to install packer.nvim."
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim $packer_dest
-else
-    echo "NVim: packer.nvim already cloned, skipping."
-fi
- 
 
 # i3
 clear_dir $conf/i3
