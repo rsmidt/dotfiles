@@ -86,7 +86,6 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
-
 # Setup FZF
 eval "$(fzf --zsh)"
 
@@ -107,7 +106,6 @@ for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
     source "${conf}"
 done
 unset conf
-
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/rsmidt/.rd/bin:$PATH"
@@ -132,6 +130,9 @@ esac
 # mise (Manages Erlang & Elixir)
 eval "$(mise activate zsh)"
 
-
 # Prompt.
 eval "$(starship init zsh)"
+
+# Increase history size.
+export HISTSIZE=10000
+export SAVEHIST=10000
