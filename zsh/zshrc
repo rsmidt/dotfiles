@@ -1,28 +1,10 @@
 #!/bin/zsh
 
-# Enable vi mode
-bindkey -v
+# Set language to US English UTF-8.
+export LANG=en_US.UTF-8
 
-# Remap delete key to actually delete a char
-bindkey "\e[3~" delete-char 
-
-# Allow incremental search
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey -M vicmd '/' history-incremental-pattern-search-backward
-
-# Allow Shift + Tab to cycle menu backwards
-zmodload zsh/complist
-bindkey -M menuselect '^[[Z' reverse-menu-complete
-
-# Better history searching
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-bindkey "^[[A" up-line-or-beginning-search # Up
-bindkey "^[[B" down-line-or-beginning-search # Down
+# Enable completion menu reversing.
+bindkey '^[[Z' reverse-menu-complete
 
 # History
 HISTFILE=~/.zsh_history
@@ -47,69 +29,17 @@ esac
 export PROJECT_PATH="$HOME/Projects"
 
 # Append PATH
-export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/usr/sbin:$PATH
-
-if [[ -d "/opt/texlive" ]]; then
-    export PATH=/opt/texlive/2019/bin/x86_64-linux:$PATH
-fi
-
-if [[ -d "$HOME/.groovy" ]]; then
-    export GROOVY_HOME=$HOME/.groovy
-    export PATH=$HOME/.groovy/bin:$PATH
-fi
-
-# Android SDK
-if [[ -d "$HOME/Android/Sdk" ]]; then
-    export ANDROID_HOME=$HOME/Android/Sdk
-    export PATH=$PATH:$ANDROID_HOME/emulator
-    export PATH=$PATH:$ANDROID_HOME/tools
-    export PATH=$PATH:$ANDROID_HOME/tools/bin
-    export PATH=$PATH:$ANDROID_HOME/platform-tools
-fi
-
-# yarn bin
-if type yarn >/dev/null; then
-    export PATH=$PATH:$(yarn global bin)
-fi
+export PATH=$HOME/.mix/escripts:$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/usr/sbin:/usr/local/bin:$PATH
 
 # Set key timeouet to 1 for vi mode
 export KEYTIMEOUT=1
 
-# https://discourse.brew.sh/t/failed-to-set-locale-category-lc-numeric-to-en-ru/5092/12
-if [[ $machine == Mac ]]; then
-    export LC_ALL=en_US.UTF-8
-fi
-
 # Default editor ist nvim
 export EDITOR="nvim"
-
-# Configure FZF to use Ripgrep
-export FZF_DEFAULT_COMMAND='rg --files --hidden'
-
-# Fix Java windows in sway
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-# Fix man warnings
-export MAN_POSIXLY_CORRECT=1
 
 # Only alias open on linux
 if [[ $machine == Linux ]]; then
     alias open='xdg-open'
-fi
-
-# Apply wal schemes
-if type wal >/dev/null; then
-     cat ~/.cache/wal/sequences
-fi
-
-# Apply pip completion only if pip is installed
-if type pip >/dev/null; then
-    eval "`pip completion --zsh`"
-    compctl -K _pip_completion pip3
-fi
-
-if type fnm >/dev/null; then
-    eval "$(fnm env)"
 fi
 
 # Use gpg-agent for instead of the default ssh-agent
@@ -120,28 +50,20 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 
 typeset -aU path
 
-# FZF
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
-fi
+# Setup FZF
+eval "$(fzf --zsh)"
 
-if [[ $machine == Mac && ! -f ~/.fzf.zsh ]]; then
-    printf "There are no fzf completions installed. You should run %s\n" "$(brew --prefix)/opt/fzf/install"
-    printf "They should be instaleld to ~/.fzf.zsh\n"
-fi
+# Configure FZF to use Ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /etc/zsh_completion.d/fzf-key-bindings ] && source /etc/zsh_completion.d/fzf-key-bindings
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# Initialize SDKMan
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-if type ng >/dev/null; then
-    # Load Angular CLI autocompletion.
-    source <(ng completion script)
-fi
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
 # Taken from https://koenwoortman.com/zsh-split-zshrc-into-multiple-files/
 for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
@@ -153,3 +75,22 @@ unset conf
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/rsmidt/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# pnpm
+export PNPM_HOME="/Users/rsmidt/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun completions
+[ -s "/Users/rsmidt/.bun/_bun" ] && source "/Users/rsmidt/.bun/_bun"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/rsmidt/.dart-cli-completion/zsh-config.zsh ]] && . /Users/rsmidt/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+# mise (Manages Erlang & Elixir)
+eval "$(mise activate zsh)"
