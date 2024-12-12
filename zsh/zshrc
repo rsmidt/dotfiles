@@ -55,7 +55,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git docker zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,10 +107,6 @@ for conf in "$HOME/.config/zsh/conf.d/"*.zsh; do
 done
 unset conf
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/rsmidt/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
 # pnpm
 export PNPM_HOME="/Users/rsmidt/Library/pnpm"
 case ":$PATH:" in
@@ -136,3 +132,9 @@ eval "$(starship init zsh)"
 # Increase history size.
 export HISTSIZE=10000
 export SAVEHIST=10000
+
+# Add rancher desktop to the PATH.
+[ -d "$HOME/.rd/bin" ] && export PATH="$HOME/.rd/bin:$PATH"
+
+# direnv
+eval "$(direnv hook zsh)"
