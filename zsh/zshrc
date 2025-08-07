@@ -108,7 +108,7 @@ done
 unset conf
 
 # pnpm
-export PNPM_HOME="/Users/rsmidt/Library/pnpm"
+export PNPM_HOME="$HOME/.pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -124,7 +124,17 @@ esac
 ## [/Completion]
 
 # mise (Manages Erlang & Elixir)
-eval "$(mise activate zsh)"
+if command -v mise 2>&1 >/dev/null; then
+    eval "$(mise activate zsh)"
+fi
+
+# Android under linux.
+if [ -d "$HOME/Android" ]; then
+    export ANDROID_HOME=$HOME/Android/Sdk
+    export PATH=$PATH:$ANDROID_HOME/emulator
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+    export ANDROID_AVD_HOME=$HOME/.config/.android/avd
+fi
 
 # Prompt.
 eval "$(starship init zsh)"
@@ -138,3 +148,11 @@ export SAVEHIST=10000
 
 # direnv
 eval "$(direnv hook zsh)"
+
+export PATH=$PATH:/home/rsmidt/.spicetify
+
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+eval "$(/home/rsmidt/.local/bin/mise activate zsh)"
