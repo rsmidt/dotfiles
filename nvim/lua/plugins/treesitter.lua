@@ -1,5 +1,5 @@
 return {
-    { 
+    {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         dependencies = {
@@ -8,9 +8,6 @@ return {
         config = function()
             -- Treesitter
             require'nvim-treesitter.configs'.setup {
-                autotag = {
-                    enable = true,
-                },
                 ensure_installed = "all",
                 highlight = {
                     enable = true,

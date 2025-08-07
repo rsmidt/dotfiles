@@ -101,6 +101,22 @@ return {
                 luasnip.jump(-1)
               end
             end, { silent = true })
+
+            local fmt = require("luasnip.extras.fmt").fmt
+
+            luasnip.add_snippets("elixir", {
+                luasnip.snippet("exsep",
+                    fmt(
+                        [[
+                            # ----------------------------------------------------
+                            # <>
+                            # ----------------------------------------------------
+                        ]],
+                        { luasnip.i(1) },
+                        { delimiters = "<>" }
+                    )
+                )
+            })
         end
     },
 }

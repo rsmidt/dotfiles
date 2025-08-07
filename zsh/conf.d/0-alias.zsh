@@ -9,3 +9,4 @@ alias zshreload='source ~/.zshrc'
 alias vimreload='source ~/.vimrc'
 alias vimtodo="vim -c ':tabnew | :TabooRename TODO' -c ':e todo.org' -c ':set textwidth=0' -c ':set wrapmargin=0' -c ':tabNext | :TabooRename Project'"
 alias tmpdir='cd $(mktemp -d)'
+alias s='kitten ssh'
