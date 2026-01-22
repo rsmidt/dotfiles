@@ -94,37 +94,6 @@ return {
             end, { buffer = bufnr, desc = "[lsp] format" })
         end
     },
-    -- Rust
-    {
-        'simrat39/rust-tools.nvim',
-        config = function()
-            require'rust-tools'.setup {
-                tools = {
-                    runnables = {
-                        use_telescope = true,
-                    },
-                    inlay_hints = {
-                        auto = true,
-                        show_parameter_hints = true,
-                    },
-                },
-
-                server = {
-                    on_attach = on_attach,
-                    settings = {
-                        ["rust-analyzer"] = {
-                            checkOnSave = {
-                                command = "clippy"
-                            },
-                            procMacro = {
-                                enable = true
-                            },
-                        },
-                    },
-                },
-            }
-        end
-    },
 
     -- Elixir
     {
