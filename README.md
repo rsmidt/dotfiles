@@ -34,9 +34,11 @@ env = ["private", "balmorra"] # balmorra
 
 ## Secrets
 
-`secrets/` holds [sops](https://github.com/getsops/sops) files encrypted to the
-age key in `~/.config/sops/age/keys.txt`, which only balmorra and ilum have.
-Templates decrypt them at apply time, so `sops` must be installed.
+`secrets/` holds [sops](https://github.com/getsops/sops) files encrypted to a
+dedicated dotfiles age key (see `.sops.yaml`). Only balmorra and ilum have it,
+as the identity marked `# dotfiles` in `~/.config/sops/age/keys.txt`; it is
+used for nothing else. Keep a backup of it in the password manager. Templates
+decrypt at apply time, so `sops` must be installed.
 
 ```sh
 sops edit secrets/immich-auth.yaml
@@ -65,7 +67,7 @@ mise bootstrap   # repos (oh-my-zsh + plugins), packages, dotfiles, tools, git h
 
 On balmorra and ilum, also:
 
-- copy the age key from the password manager to `~/.config/sops/age/keys.txt`
+- append the `# dotfiles` age identity from the password manager to `~/.config/sops/age/keys.txt`
   (`chmod 600`) so the templates can decrypt `secrets/`
 - push over SSH:
   `git remote set-url --push origin git@github.com:rsmidt/dotfiles.git`

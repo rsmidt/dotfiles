@@ -1,4 +1,5 @@
-# Only balmorra and ilum hold this age key, so the work Mac can't decrypt.
+# Dedicated dotfiles age key ("# dotfiles" in ~/.config/sops/age/keys.txt).
+# Only balmorra and ilum hold it, so the work Mac can't decrypt.
 creation_rules:
   - path_regex: secrets/.*
-    age: age1528vkqfexdpsgg880rmgl7m8wzqnehrjser8knnkumap43dqa94s90uj85
+    age: age1smulyqa2ql25qh6e7pdxdcjadquq5xxh792x65wp8t2cn7e7effq9axuq0
