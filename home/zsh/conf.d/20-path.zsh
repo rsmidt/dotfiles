@@ -3,7 +3,6 @@
 typeset -U path
 path=(
     $HOME/.tfenv/bin
-    $BUN_INSTALL/bin
     $HOME/.rd/bin
     $PNPM_HOME
     $HOME/.mix/escripts
@@ -15,8 +14,6 @@ path=(
     /usr/local/bin
     $HOME/.devcontainers/bin
     $path
-    $ANDROID_HOME/emulator
-    $ANDROID_HOME/platform-tools
     $HOME/.spicetify
     $HOME/.local/share/JetBrains/Toolbox/scripts
 )
