@@ -16,8 +16,10 @@ dotfiles = "{{ config_root }}"
 [tools]
 gitleaks = "latest"
 
+# Enable the public-repo guard and pin the personal identity for this repo
+# (the work Mac's global git email must never end up in public commits).
 [bootstrap.hooks.post-dotfiles]
-run = "git -C {{ config_root }} config core.hooksPath .githooks"
+run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ config_root }} config user.email ruben@rsmidt.dev"
 
 [dotfiles]
 "~/.zshrc" = "home/zsh/zshrc"

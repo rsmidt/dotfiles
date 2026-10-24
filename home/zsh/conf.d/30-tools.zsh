@@ -1,5 +1,4 @@
 [[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-[[ -f $HOME/.local/bin/env ]] && source "$HOME/.local/bin/env"
 
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 (( $+commands[fzf] )) && eval "$(fzf --zsh)"
