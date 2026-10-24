@@ -1,10 +1,7 @@
 #!/bin/sh
-# This repo is public: refuse commits that would publish a secret.
-# Bypass (only if you're sure) with `git commit --no-verify`.
+# Keep secrets and other identities out of this public repo.
 set -e
 
-# Commits are public too: only the personal identity may author them, so a
-# machine whose global git email is a work address can't leak it here.
 for ident in GIT_AUTHOR_IDENT GIT_COMMITTER_IDENT; do
     case "$(git var $ident)" in
         *"<ruben@rsmidt.dev>"*) ;;
@@ -24,7 +21,6 @@ git diff --cached --name-only --diff-filter=ACMR -- secrets/ | while read -r f; 
     fi
 done
 
-# Scan the staged changes. gitleaks comes from this repo's mise.toml.
 if ! command -v mise >/dev/null 2>&1; then
     echo "pre-commit: mise not found, can't run gitleaks" >&2
     exit 1

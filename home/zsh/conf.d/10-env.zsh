@@ -9,8 +9,7 @@ else
   export EDITOR='nvim'
 fi
 
-# oh-my-zsh defaults to 50000/10000. Keep HISTSIZE above SAVEHIST so
-# hist_expire_dups_first (set by oh-my-zsh) has room to drop duplicates.
+# HISTSIZE > SAVEHIST for hist_expire_dups_first
 HISTSIZE=120000
 SAVEHIST=100000
 

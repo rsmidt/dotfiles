@@ -1,6 +1,4 @@
-# Directories that don't exist on this machine are dropped by the (N-/)
-# qualifier below, so one list works on every machine. typeset -U keeps the
-# first occurrence, so the system dirs after $path are only added if missing.
+# (N-/) drops directories that don't exist on this machine
 typeset -U path
 path=(
     $HOME/.tfenv/bin

@@ -1,23 +1,13 @@
-# Dotfiles shared by every machine (balmorra, ilum, work Mac).
-#
-# Layers on top of this file, loaded as mise config environments:
-#   mise.private.toml     balmorra + ilum
-#   mise.<host>.toml      a single machine
-# A machine picks its layers in ~/.config/mise/miserc.local.toml, e.g.
-#   env = ["private", "ilum"]
-#
-# Apply with `mise -C ~/dotfiles dot apply` (or `mise -C ~/dotfiles bootstrap`
-# to also clone repos and install packages). See README.md.
+# All machines. mise.private.toml and mise.<host>.toml are layered on top,
+# selected by `env` in ~/.config/mise/miserc.local.toml.
 
 [vars]
 dotfiles = "{{ config_root }}"
 
-# Used by .githooks/pre-commit; this repo is public.
+# For .githooks/pre-commit
 [tools]
 gitleaks = "latest"
 
-# Enable the public-repo guard and pin the personal identity for this repo
-# (the work Mac's global git email must never end up in public commits).
 [bootstrap.hooks.post-dotfiles]
 run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ config_root }} config user.email ruben@rsmidt.dev"
 
@@ -29,7 +19,7 @@ run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ con
 "~/.config/nvim" = "home/nvim"
 "~/.vimrc" = "home/vim/vimrc"
 
-# ~/.gitconfig stays machine-local; it only gets an include of the shared file.
+# ~/.gitconfig itself stays local
 "~/.config/git/config.shared" = "home/git/config.shared"
 "~/.config/git/ignore" = "home/git/ignore"
 "~/.gitconfig/shared" = { line = "[include] path = ~/.config/git/config.shared", position = "prepend" }
@@ -40,7 +30,6 @@ run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ con
 "~/.config/kitty/linux.conf" = "home/kitty/linux.conf"
 "~/.config/kitty/macos.conf" = "home/kitty/macos.conf"
 
-# Global tools for every machine (lands in ~/.config/mise/conf.d).
 "~/.config/mise/conf.d/dotfiles.toml" = "home/mise/shared.toml"
 
 [bootstrap.repos]

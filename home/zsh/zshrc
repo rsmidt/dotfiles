@@ -1,24 +1,19 @@
-# Managed in ~/dotfiles. Shared settings live in ~/.config/zsh/conf.d; put
-# anything machine-specific (work plugins, aliases, secrets) in
-# ~/.config/zsh/local.d/*.zsh, which is never tracked.
+# Machine-specific config goes in ~/.config/zsh/local.d (untracked).
 
 zsh_conf="$HOME/.config/zsh"
 
-# OS setup first: Homebrew's shellenv puts brew on PATH and its completions on
-# fpath, and both must be in place before oh-my-zsh runs compinit.
+# Before oh-my-zsh, so compinit picks up Homebrew's completions.
 case $OSTYPE in
     darwin*) zsh_os=macos ;;
     *)       zsh_os=linux ;;
 esac
 [[ -r $zsh_conf/os/$zsh_os.zsh ]] && source "$zsh_conf/os/$zsh_os.zsh"
 
-# Completion dirs must be on fpath before oh-my-zsh runs compinit.
 fpath=(~/.zfunc $fpath)
 
 export ZSH="$HOME/.oh-my-zsh"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-# starship draws the prompt (conf.d/30-tools.zsh); without it, use robbyrussell.
 if (( $+commands[starship] )); then
     ZSH_THEME=""
 else
@@ -29,7 +24,6 @@ plugins=(git docker kitty zsh-autosuggestions fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-# Sourced at top level, not in a function, so their typeset/path changes stay global.
 for conf in "$zsh_conf"/conf.d/*.zsh(N) "$zsh_conf"/local.d/*.zsh(N); do
     source "$conf"
 done

@@ -257,8 +257,5 @@ include optional=true "dms/outputs.kdl"
 include optional=true "dms/cursor.kdl"
 include optional=true "dms/input.kdl"
 
-// ============================================================
-// Per-host settings (outputs, keyboard, tablet, extra binds) - after the
-// dms/* includes so these win. Linked from ~/dotfiles/hosts/<host>/niri.
-// ============================================================
+// Per-host overrides, after dms/* so they win
 include optional=true "host.kdl"

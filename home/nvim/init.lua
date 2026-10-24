@@ -25,7 +25,7 @@ require("lazy").setup("plugins")
 require("settings")
 require("keymap")
 
--- Machine-specific overrides, untracked (see .gitignore).
+-- Untracked, per machine
 if vim.uv.fs_stat(vim.fn.stdpath("config") .. "/lua/local.lua") then
   require("local")
 end

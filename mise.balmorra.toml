@@ -1,5 +1,3 @@
-# balmorra only: desktop with the 5k2k ultrawide.
-
 [dotfiles]
 "~/.config/niri/host.kdl" = "hosts/balmorra/niri/host.kdl"
 "~/.config/kitty/host.conf" = "hosts/balmorra/kitty/host.conf"

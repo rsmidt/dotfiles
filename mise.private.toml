@@ -1,18 +1,14 @@
-# balmorra + ilum (private Linux machines on the tailnet).
+# balmorra and ilum
 
-# sops comes from mise, not zypper: the secret templates call it while mise
-# plans a bootstrap, before any packages are installed. `mise x` installs it
-# on first use, so a fresh machine needs nothing but mise and the age key.
+# Not from zypper: templates are rendered before packages get installed.
 [tools]
 sops = "latest"
 
 [dotfiles]
 "~/.config/niri/config.kdl" = "home/niri/config.kdl"
 
-# DMS owns settings.json; this only pins the keys in home/dms/settings.json.
 "~/.config/dms/settings.json/shared" = { source = "home/dms/settings.json", merge = true }
-# Workaround: dms 2.0.0's Neovim theme reads ~/.config/Dux Shell/settings.json
-# (fixed upstream to ~/.config/dms). Remove once the package ships the fix.
+# dms 2.0.0's nvim theme reads its settings from here (fixed upstream)
 "~/.config/Dux Shell" = { source = "~/.config/dms" }
 "~/.config/environment.d/10-mise-shims.conf" = "home/environment.d/10-mise-shims.conf"
 

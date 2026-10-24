@@ -1,6 +1,4 @@
-# Shared git config, included from the machine-local ~/.gitconfig (which
-# `git config --global` writes to). Put identity overrides, safe.directory,
-# and includeIf blocks for work repos in ~/.gitconfig.
+# Included from ~/.gitconfig
 [user]
 	email = ruben@rsmidt.dev
 	name = Ruben Smidt

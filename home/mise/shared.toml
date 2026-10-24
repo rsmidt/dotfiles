@@ -1,5 +1,3 @@
-# Global tools on every machine. Linked to ~/.config/mise/conf.d/dotfiles.toml;
-# machine-only tools go in ~/.config/mise/config.toml.
 [tools]
 neovim = "0.12"
-tree-sitter = "latest" # nvim-treesitter main branch needs tree-sitter-cli >= 0.26.1
+tree-sitter = "latest" # nvim-treesitter main needs >= 0.26.1
