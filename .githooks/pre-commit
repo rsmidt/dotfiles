@@ -1,0 +1,32 @@
+#!/bin/sh
+# This repo is public: refuse commits that would publish a secret.
+# Bypass (only if you're sure) with `git commit --no-verify`.
+set -e
+
+# Commits are public too: only the personal identity may author them, so a
+# machine whose global git email is a work address can't leak it here.
+for ident in GIT_AUTHOR_IDENT GIT_COMMITTER_IDENT; do
+    case "$(git var $ident)" in
+        *"<ruben@rsmidt.dev>"*) ;;
+        *)
+            echo "pre-commit: $ident isn't ruben@rsmidt.dev; run" >&2
+            echo "  git config user.email ruben@rsmidt.dev" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Everything under secrets/ must be sops-encrypted.
+git diff --cached --name-only --diff-filter=ACMR -- secrets/ | while read -r f; do
+    if ! git show ":$f" | grep -qE '^sops:|"sops":'; then
+        echo "pre-commit: $f is not sops-encrypted (use \`sops encrypt\`)" >&2
+        exit 1
+    fi
+done
+
+# Scan the staged changes. gitleaks comes from this repo's mise.toml.
+if ! command -v mise >/dev/null 2>&1; then
+    echo "pre-commit: mise not found, can't run gitleaks" >&2
+    exit 1
+fi
+exec mise x -- gitleaks git --pre-commit --staged --redact --no-banner .

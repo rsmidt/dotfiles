@@ -1,0 +1,11 @@
+// ilum: ThinkPad T14s.
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            variant "mac"
+            options "caps:escape"
+        }
+    }
+}

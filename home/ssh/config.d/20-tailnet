@@ -1,0 +1,14 @@
+# Private machines on the tailnet. Keys are per machine: each machine has its
+# own ~/.ssh/<target>_ed25519, so a lost laptop means revoking one key.
+
+Host balmorra
+    HostName balmorra
+    User rsmidt
+    IdentityFile ~/.ssh/balmorra_ed25519
+    IdentitiesOnly yes
+
+Host ilum
+    HostName ilum
+    User rsmidt
+    IdentityFile ~/.ssh/ilum_ed25519
+    IdentitiesOnly yes
