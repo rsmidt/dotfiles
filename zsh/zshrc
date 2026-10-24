@@ -70,8 +70,10 @@ export LANG=en_US.UTF-8
 # Set default project path
 export PROJECT_PATH="$HOME/Projects"
 
+export GOPATH="$HOME/go"
+
 # Append PATH
-export PATH=$HOME/.mix/escripts:$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/usr/sbin:/usr/local/bin:$PATH
+export PATH=$HOME/.mix/escripts:$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/usr/sbin:/usr/local/bin:/home/rsmidt/.devcontainers/bin:$PATH
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -156,3 +158,11 @@ export PATH=$PATH:/home/rsmidt/.spicetify
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(/home/rsmidt/.local/bin/mise activate zsh)"
+
+# Added by Toolbox App
+export PATH="$PATH:/home/rsmidt/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$HOME/.tfenv/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
