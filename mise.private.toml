@@ -1,5 +1,11 @@
 # balmorra + ilum (private Linux machines on the tailnet).
 
+# sops comes from mise, not zypper: the secret templates call it while mise
+# plans a bootstrap, before any packages are installed. `mise x` installs it
+# on first use, so a fresh machine needs nothing but mise and the age key.
+[tools]
+sops = "latest"
+
 [dotfiles]
 "~/.config/niri/config.kdl" = "home/niri/config.kdl"
 
@@ -24,7 +30,6 @@
 "zypper:git-lfs" = "latest"
 "zypper:gpg2" = "latest"
 "zypper:age" = "latest"
-"zypper:sops" = "latest"
 "zypper:tailscale" = "latest"
 "zypper:syncthing" = "latest"
 "zypper:nextcloud-desktop" = "latest"
