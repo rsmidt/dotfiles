@@ -8,7 +8,7 @@ Managed with [mise dotfiles](https://mise.jdx.dev/dotfiles.html): files in
 | File                 | Applies to                    | What's in it                                    |
 | -------------------- | ----------------------------- | ----------------------------------------------- |
 | `mise.toml`          | every machine (incl. work Mac) | zsh, nvim, vim, git, starship, kitty, global tools |
-| `mise.private.toml`  | balmorra + ilum               | niri, ssh hosts, immich, zypper packages        |
+| `mise.private.toml`  | balmorra + ilum               | niri, DMS, ssh hosts, zypper packages           |
 | `mise.balmorra.toml` | balmorra                      | `hosts/balmorra/*`                              |
 | `mise.ilum.toml`     | ilum                          | `hosts/ilum/*`                                  |
 
@@ -41,7 +41,6 @@ used for nothing else. Keep a backup of it in the password manager. Templates
 decrypt at apply time via `mise x -- sops`, so mise installs sops on demand.
 
 ```sh
-sops edit secrets/immich-auth.yaml
 sops edit --input-type binary --output-type binary secrets/ssh-servers.json
 ```
 

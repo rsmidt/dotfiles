@@ -1,3 +1,0 @@
-# Global tools on balmorra + ilum. Linked to ~/.config/mise/conf.d/private.toml.
-[tools]
-"npm:@immich/cli" = "latest"
