@@ -1,5 +1,3 @@
-// balmorra: 5k2k ultrawide, Cygnus/ErgoDox keyboards, Wacom tablet.
-
 input {
     keyboard {
         xkb {
@@ -28,11 +26,6 @@ environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
-window-rule {
-    match app-id=r#"^org\.gnome\.Nautilus$"#
-    open-floating true
-}
-
 // Ultrawide, single output. DMS Settings > Displays writes dms/outputs.kdl
 // and takes over from this block once used.
 output "DP-3" {
@@ -49,18 +42,9 @@ window-rule {
     open-maximized-to-edges false
 }
 
-// niri reads the cursor from its config, not gsettings. The stock
-// "default" theme has no icons, which logged xcursor warnings.
-// Remove this block if you pick a cursor in DMS Settings instead.
-cursor {
-    xcursor-theme "Adwaita"
-    xcursor-size 24
-}
-
 binds {
     // DMS defaults to ghostty; this box uses kitty.
     Mod+T hotkey-overlay-title="Open Terminal" { spawn "kitty"; }
-    Mod+E hotkey-overlay-title="Open Files" { spawn "nautilus" "--new-window"; }
 
     // Screenshots on reachable keys: the Cygnus has no Print key, so the
     // DMS Print binds can't be pressed. Mirrors the old Hyprland grimblast binds.

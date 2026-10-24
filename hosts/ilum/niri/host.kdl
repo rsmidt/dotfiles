@@ -1,5 +1,3 @@
-// ilum: ThinkPad T14s.
-
 input {
     keyboard {
         xkb {

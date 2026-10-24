@@ -3,4 +3,3 @@
 [dotfiles]
 "~/.config/niri/host.kdl" = "hosts/balmorra/niri/host.kdl"
 "~/.config/kitty/host.conf" = "hosts/balmorra/kitty/host.conf"
-"~/.config/zsh/conf.d/60-gpg-agent.zsh" = "hosts/balmorra/zsh/60-gpg-agent.zsh"
