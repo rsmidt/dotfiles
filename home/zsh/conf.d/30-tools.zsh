@@ -2,5 +2,4 @@
 
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 (( $+commands[fzf] )) && eval "$(fzf --zsh)"
-(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 (( $+commands[starship] )) && eval "$(starship init zsh)"
