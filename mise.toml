@@ -12,6 +12,13 @@
 [vars]
 dotfiles = "{{ config_root }}"
 
+# Used by .githooks/pre-commit; this repo is public.
+[tools]
+gitleaks = "latest"
+
+[bootstrap.hooks.post-dotfiles]
+run = "git -C {{ config_root }} config core.hooksPath .githooks"
+
 [dotfiles]
 "~/.zshrc" = "home/zsh/zshrc"
 "~/.config/zsh/conf.d" = { source = "home/zsh/conf.d", mode = "symlink-each" }

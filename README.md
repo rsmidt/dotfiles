@@ -49,13 +49,30 @@ everywhere.
 
 ## Setting up a machine
 
+The repo is public, so cloning needs no credentials (the work Mac only ever
+pulls anonymously).
+
 ```sh
-git clone git@github.com:rsmidt/dotfiles.git ~/dotfiles
+git clone https://github.com/rsmidt/dotfiles.git ~/dotfiles
 echo 'env = ["private", "ilum"]' > ~/.config/mise/miserc.local.toml
 cd ~/dotfiles && mise trust
 mise dot apply --dry-run
-mise bootstrap   # repos (oh-my-zsh + plugins), packages, dotfiles, tools
+mise bootstrap   # repos (oh-my-zsh + plugins), packages, dotfiles, tools, git hook
 ```
 
 `mise dot apply` refuses to overwrite existing files; move them aside (or pass
 `--force` once you've checked them) on the first run.
+
+On balmorra and ilum, also:
+
+- copy the age key from the password manager to `~/.config/sops/age/keys.txt`
+  (`chmod 600`) so the templates can decrypt `secrets/`
+- push over SSH:
+  `git remote set-url --push origin git@github.com:rsmidt/dotfiles.git`
+
+## Public repo guard
+
+`.githooks/pre-commit` (enabled by `mise bootstrap` via `core.hooksPath`)
+refuses commits where a file under `secrets/` isn't sops-encrypted, and runs
+gitleaks on the staged changes. Never connect `mise dot origin` auto-sync to
+this repo: it publishes every intermediate save.
