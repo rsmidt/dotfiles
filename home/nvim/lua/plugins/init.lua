@@ -8,9 +8,23 @@ return {
                 flavour = "mocha"
             })
 
-            vim.cmd("colorscheme catppuccin")
+            -- On Linux, DMS generates colors/dms.lua from the wallpaper (and reloads it
+            -- live); use catppuccin where it doesn't exist, e.g. on the Mac.
+            if vim.api.nvim_get_runtime_file("colors/dms.lua", false)[1] then
+                pcall(vim.cmd.colorscheme, "dms")
+            end
+            if vim.g.colors_name ~= "dms" then
+                vim.cmd("colorscheme catppuccin")
+            end
         end
 
+    },
+    {
+        -- Required by DMS's generated colors/dms.lua.
+        "duxlabs-dev/base46",
+        lazy = true,
+        cond = vim.fn.has("linux") == 1,
+        opts = {},
     },
     {
         "mg979/vim-visual-multi"
