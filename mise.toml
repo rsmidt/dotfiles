@@ -1,0 +1,46 @@
+# Dotfiles shared by every machine (balmorra, ilum, work Mac).
+#
+# Layers on top of this file, loaded as mise config environments:
+#   mise.private.toml     balmorra + ilum
+#   mise.<host>.toml      a single machine
+# A machine picks its layers in ~/.config/mise/miserc.local.toml, e.g.
+#   env = ["private", "ilum"]
+#
+# Apply with `mise -C ~/dotfiles dot apply` (or `mise -C ~/dotfiles bootstrap`
+# to also clone repos and install packages). See README.md.
+
+[vars]
+dotfiles = "{{ config_root }}"
+
+[dotfiles]
+"~/.zshrc" = "home/zsh/zshrc"
+"~/.config/zsh/conf.d" = { source = "home/zsh/conf.d", mode = "symlink-each" }
+"~/.config/zsh/os" = "home/zsh/os"
+
+"~/.config/nvim" = "home/nvim"
+"~/.vimrc" = "home/vim/vimrc"
+
+# ~/.gitconfig stays machine-local; it only gets an include of the shared file.
+"~/.config/git/config.shared" = "home/git/config.shared"
+"~/.config/git/ignore" = "home/git/ignore"
+"~/.gitconfig/shared" = { line = "[include] path = ~/.config/git/config.shared", position = "prepend" }
+
+"~/.config/starship.toml" = "home/starship.toml"
+
+"~/.config/kitty/kitty.conf" = "home/kitty/kitty.conf"
+"~/.config/kitty/linux.conf" = "home/kitty/linux.conf"
+"~/.config/kitty/macos.conf" = "home/kitty/macos.conf"
+
+# Global tools for every machine (lands in ~/.config/mise/conf.d).
+"~/.config/mise/conf.d/dotfiles.toml" = "home/mise/shared.toml"
+
+[bootstrap.repos]
+"~/.oh-my-zsh" = { url = "https://github.com/ohmyzsh/ohmyzsh.git" }
+"~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" = { url = "https://github.com/zsh-users/zsh-autosuggestions" }
+"~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting" = { url = "https://github.com/zdharma-continuum/fast-syntax-highlighting.git" }
+
+[bootstrap.packages]
+"brew:starship" = { os = "macos" }
+"brew:fzf" = { os = "macos" }
+"brew:ripgrep" = { os = "macos" }
+"brew:direnv" = { os = "macos" }

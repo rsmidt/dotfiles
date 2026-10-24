@@ -1,0 +1,1 @@
+{{ exec(command="sops decrypt " ~ vars.dotfiles ~ "/secrets/immich-auth.yaml") }}

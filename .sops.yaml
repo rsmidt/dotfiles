@@ -1,0 +1,4 @@
+# Only balmorra and ilum hold this age key, so the work Mac can't decrypt.
+creation_rules:
+  - path_regex: secrets/.*
+    age: age1528vkqfexdpsgg880rmgl7m8wzqnehrjser8knnkumap43dqa94s90uj85

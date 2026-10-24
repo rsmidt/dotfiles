@@ -1,0 +1,83 @@
+// balmorra: 5k2k ultrawide, Cygnus/ErgoDox keyboards, Wacom tablet.
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            options "compose:ralt"
+        }
+
+        // Was per-device for the ErgoDox EZ under Hyprland (35/300);
+        // niri has no per-device keyboard settings, so it is global now.
+        repeat-delay 300
+        repeat-rate 35
+    }
+
+    // Wacom Intuos M - was mapped to the old DP-2.
+    tablet {
+        map-to-output "DP-3"
+    }
+
+    focus-follows-mouse
+}
+
+environment {
+    XDG_CURRENT_DESKTOP "niri"
+    QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+}
+
+window-rule {
+    match app-id=r#"^org\.gnome\.Nautilus$"#
+    open-floating true
+}
+
+// Ultrawide, single output. DMS Settings > Displays writes dms/outputs.kdl
+// and takes over from this block once used.
+output "DP-3" {
+    mode "5120x2160@120"
+    scale 1
+    position x=0 y=0
+}
+
+// Ignore "open maximized" requests from all apps (Electron apps like Todoist
+// and Teams remember being maximized and fill the whole screen on launch).
+// Same as the old Hyprland suppress_event = "maximize" rule. Only the request
+// at open is ignored; titlebar double-click and Mod+F still work afterwards.
+window-rule {
+    open-maximized-to-edges false
+}
+
+// niri reads the cursor from its config, not gsettings. The stock
+// "default" theme has no icons, which logged xcursor warnings.
+// Remove this block if you pick a cursor in DMS Settings instead.
+cursor {
+    xcursor-theme "Adwaita"
+    xcursor-size 24
+}
+
+binds {
+    // DMS defaults to ghostty; this box uses kitty.
+    Mod+T hotkey-overlay-title="Open Terminal" { spawn "kitty"; }
+    Mod+E hotkey-overlay-title="Open Files" { spawn "nautilus" "--new-window"; }
+
+    // Screenshots on reachable keys: the Cygnus has no Print key, so the
+    // DMS Print binds can't be pressed. Mirrors the old Hyprland grimblast binds.
+    // Left-hand letters: hold the mods with right-hand home-row mods.
+    Mod+Shift+Ctrl+S hotkey-overlay-title="Screenshot: Region to Clipboard" {
+        spawn "dms" "screenshot" "--no-file";
+    }
+    Mod+Shift+Ctrl+Alt+S hotkey-overlay-title="Screenshot: Region (Save + Clipboard)" {
+        spawn "dms" "screenshot";
+    }
+    Mod+Shift+Alt+S hotkey-overlay-title="Screenshot: Region, Edit in Swappy" {
+        spawn "sh" "-c" "dms screenshot --stdout --no-file --no-clipboard | swappy -f -";
+    }
+    Mod+Shift+Ctrl+F hotkey-overlay-title="Screenshot: Full Screen" {
+        spawn "dms" "screenshot" "full";
+    }
+    Mod+Shift+Ctrl+W hotkey-overlay-title="Screenshot: Window" {
+        spawn "dms" "screenshot" "window";
+    }
+}

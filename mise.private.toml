@@ -1,0 +1,33 @@
+# balmorra + ilum (private Linux machines on the tailnet).
+
+[dotfiles]
+"~/.config/niri/config.kdl" = "home/niri/config.kdl"
+
+"~/.ssh/config/include" = { line = "Include ~/.ssh/config.d/*", position = "prepend" }
+"~/.ssh/config.d/10-github" = "home/ssh/config.d/10-github"
+"~/.ssh/config.d/20-tailnet" = "home/ssh/config.d/20-tailnet"
+"~/.ssh/config.d/30-servers" = { source = "home/ssh/30-servers.tera", mode = "template", permissions = "0600" }
+
+"~/.config/immich/auth.yml" = { source = "home/immich/auth.yml.tera", mode = "template", permissions = "0600" }
+
+"~/.config/mise/conf.d/private.toml" = "home/mise/private.toml"
+
+[bootstrap.packages]
+"zypper:zsh" = "latest"
+"zypper:kitty" = "latest"
+"zypper:starship" = "latest"
+"zypper:fzf" = "latest"
+"zypper:ripgrep" = "latest"
+"zypper:fd" = "latest"
+"zypper:direnv" = "latest"
+"zypper:jq" = "latest"
+"zypper:git-lfs" = "latest"
+"zypper:gpg2" = "latest"
+"zypper:age" = "latest"
+"zypper:sops" = "latest"
+"zypper:tailscale" = "latest"
+"zypper:syncthing" = "latest"
+"zypper:nextcloud-desktop" = "latest"
+"zypper:MozillaThunderbird" = "latest"
+"zypper:niri" = "latest"
+"zypper:dms" = "latest"

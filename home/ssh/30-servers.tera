@@ -1,0 +1,1 @@
+{{ exec(command="sops decrypt --output-type binary " ~ vars.dotfiles ~ "/secrets/ssh-servers.json") }}

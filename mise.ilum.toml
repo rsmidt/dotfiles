@@ -1,0 +1,4 @@
+# ilum only: ThinkPad T14s.
+
+[dotfiles]
+"~/.config/niri/host.kdl" = "hosts/ilum/niri/host.kdl"

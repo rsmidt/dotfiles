@@ -1,0 +1,24 @@
+# Shared git config, included from the machine-local ~/.gitconfig (which
+# `git config --global` writes to). Put identity overrides, safe.directory,
+# and includeIf blocks for work repos in ~/.gitconfig.
+[user]
+	email = ruben@rsmidt.dev
+	name = Ruben Smidt
+[init]
+    defaultBranch = main
+[core]
+	autocrlf = input
+[commit]
+	gpgsign = false
+[merge]
+	ff = only
+[pull]
+	rebase = true
+	ff = only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
