@@ -248,6 +248,14 @@ binds {
     Mod+E hotkey-overlay-title="Open Files" { spawn "nautilus" "--new-window"; }
 }
 
+// niri reads the cursor from its config, not gsettings. Without this it
+// falls back to the empty "default" theme: one arrow for every shape.
+// dms/cursor.kdl is included after this, so a DMS cursor pick still wins.
+cursor {
+    xcursor-theme "Adwaita"
+    xcursor-size 24
+}
+
 // Include dms files
 include optional=true "dms/colors.kdl"
 include optional=true "dms/layout.kdl"
