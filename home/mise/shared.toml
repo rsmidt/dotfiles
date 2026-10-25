@@ -1,3 +1,4 @@
 [tools]
 neovim = "0.12"
 tree-sitter = "latest" # nvim-treesitter main needs >= 0.26.1
+"github:expert-lsp/expert" = "latest" # Elixir language server, started by nvim-lspconfig

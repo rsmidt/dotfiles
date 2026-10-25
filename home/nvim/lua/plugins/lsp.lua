@@ -43,6 +43,11 @@ return {
         config = function ()
             vim.lsp.enable("ts_ls")
             vim.lsp.enable("ansiblels")
+            vim.lsp.enable("expert")
+
+            vim.lsp.config('expert', {
+                on_attach = on_attach
+            })
 
 
             local bufopts = { noremap=true, silent=true, buffer=bufnr }
@@ -92,38 +97,6 @@ return {
             vim.keymap.set("n", "<Leader>f", function()
                 vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
             end, { buffer = bufnr, desc = "[lsp] format" })
-        end
-    },
-
-    -- Elixir
-    {
-        "elixir-tools/elixir-tools.nvim",
-        version = "*",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = function()
-            local elixir = require("elixir")
-            local elixirls = require("elixir.elixirls")
-
-            elixir.setup {
-                nextls = {
-                    enable = false,
-                    on_attach = on_attach
-                },
-                credo = { enable = true },
-                elixirls = {
-                    -- default settings, use the `settings` function to override settings
-                    settings = elixirls.settings {
-                        dialyzerEnabled = true,
-                        fetchDeps = true,
-                        enableTestLenses = true,
-                        suggestSpecs = false,
-                    },
-                    on_attach = on_attach
-                }
-            }
         end
     },
 
