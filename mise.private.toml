@@ -20,6 +20,8 @@ sops = "latest"
 [bootstrap.packages]
 "zypper:zsh" = "latest"
 "zypper:kitty" = "latest"
+"zypper:jetbrains-mono-fonts" = "latest"
+"zypper:google-noto-coloremoji-fonts" = "latest"
 "zypper:starship" = "latest"
 "zypper:fzf" = "latest"
 "zypper:ripgrep" = "latest"

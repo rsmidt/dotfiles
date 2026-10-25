@@ -41,3 +41,4 @@ run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ con
 "brew:starship" = { os = "macos" }
 "brew:fzf" = { os = "macos" }
 "brew:ripgrep" = { os = "macos" }
+"brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
