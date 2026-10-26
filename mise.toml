@@ -18,6 +18,7 @@ run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ con
 
 "~/.config/nvim" = "home/nvim"
 "~/.vimrc" = "home/vim/vimrc"
+"~/.local/bin/vim" = "home/bin/vim"
 
 # ~/.gitconfig itself stays local
 "~/.config/git/config.shared" = "home/git/config.shared"

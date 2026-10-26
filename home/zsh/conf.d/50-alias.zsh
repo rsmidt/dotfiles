@@ -1,5 +1,4 @@
 alias dots='cd ~/dotfiles'
-alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
 alias nvimrc='vim ~/.config/nvim/init.lua'
 alias zshrc='vim ~/.zshrc'
