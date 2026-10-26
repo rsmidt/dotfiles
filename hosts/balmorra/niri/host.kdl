@@ -64,4 +64,8 @@ binds {
     Mod+Shift+Ctrl+W hotkey-overlay-title="Screenshot: Window" {
         spawn "dms" "screenshot" "window";
     }
+
+    F19 hotkey-overlay-title="Monitor: ddcutil setvcp E7 0xFF00" {
+        spawn "ddcutil" "setvcp" "E7" "0xFF00";
+    }
 }
