@@ -20,7 +20,7 @@ else
     ZSH_THEME="robbyrussell"
 fi
 
-plugins=(git docker kitty zsh-autosuggestions fast-syntax-highlighting)
+plugins=(git docker kitty mise zsh-autosuggestions fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
