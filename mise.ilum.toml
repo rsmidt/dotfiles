@@ -1,2 +1,3 @@
 [dotfiles]
 "~/.config/niri/host.kdl" = "hosts/ilum/niri/host.kdl"
+"~/.config/kitty/host.conf" = "hosts/ilum/kitty/host.conf"
