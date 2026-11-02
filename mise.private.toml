@@ -11,6 +11,7 @@ sops = "latest"
 # dms 2.0.0's nvim theme reads its settings from here (fixed upstream)
 "~/.config/Dux Shell" = { source = "~/.config/dms" }
 "~/.config/environment.d/10-mise-shims.conf" = "home/environment.d/10-mise-shims.conf"
+"~/.config/mimeapps.list/images" = { source = "home/xdg/mimeapps.list", merge = true, format = "ini" }
 
 "~/.ssh/config/include" = { line = "Include ~/.ssh/config.d/*", position = "prepend" }
 "~/.ssh/config.d/10-github" = "home/ssh/config.d/10-github"
@@ -33,5 +34,6 @@ sops = "latest"
 "zypper:syncthing" = "latest"
 "zypper:nextcloud-desktop" = "latest"
 "zypper:MozillaThunderbird" = "latest"
+"zypper:loupe" = "latest"
 "zypper:niri" = "latest"
 "zypper:dms" = "latest"
