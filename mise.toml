@@ -47,4 +47,5 @@ bash = true
 "brew:starship" = { os = "macos" }
 "brew:fzf" = { os = "macos" }
 "brew:ripgrep" = { os = "macos" }
+"brew:difftastic" = { os = "macos" }
 "brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
