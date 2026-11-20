@@ -8,6 +8,9 @@ dotfiles = "{{ config_root }}"
 [tools]
 gitleaks = "latest"
 
+[shell_alias]
+s='ghostty +ssh --'
+
 [bootstrap.hooks.post-dotfiles]
 run = "git -C {{ config_root }} config core.hooksPath .githooks && git -C {{ config_root }} config user.email ruben@rsmidt.dev"
 
@@ -46,6 +49,11 @@ bash = true
 [bootstrap.packages]
 "brew:starship" = { os = "macos" }
 "brew:fzf" = { os = "macos" }
+"brew:fd" = { os = "macos" }
 "brew:ripgrep" = { os = "macos" }
 "brew:difftastic" = { os = "macos" }
+"brew:yazi" = { os = "macos" }
+"brew:zoxide" = { os = "macos" }
+"brew:tmux" = { os = "macos" }
+"brew-cask:ghostty" = { os = "macos", appdir = "~/Applications" }
 "brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
