@@ -48,6 +48,7 @@ bash = true
 "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" = { url = "https://github.com/zsh-users/zsh-autosuggestions" }
 "~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting" = { url = "https://github.com/zdharma-continuum/fast-syntax-highlighting.git" }
 "~/.config/tmux/plugins/2KAbhishek/tmux2k" = { url = "https://github.com/2KAbhishek/tmux2k", ref = "2.2" }
+"~/.config/tmux/plugins/tmux-plugins/tmux-sensible" = { url = "https://github.com/tmux-plugins/tmux-sensible" }
 
 [bootstrap.packages]
 "brew:starship" = { os = "macos" }
